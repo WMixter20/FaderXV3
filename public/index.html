@@ -51,6 +51,27 @@
     </div>
 
 
+    <button type="submit" id="sumbit">Message Send </button>
+
+    <script src="socket.io/socket.io.js"></script>
+    <script>
+        const socket = io()
+
+        socket.on('connect',()=>{
+
+            console.log('A Client connected')
+
+            socket.on('disconnect',()=>{
+                console.log('A Client disconnected')
+            })
+
+            let sumbit = document.getElementById("sumbit")
+            sumbit.addEventListener('click',()=>{
+                socket.emit('message','Hello World From Client')
+            })
+        })
+
+    </script>
     <script type="text/javascript" src="app.js"></script>
 
 </body>
