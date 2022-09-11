@@ -1,6 +1,19 @@
+const socket = io()
+
+socket.on('connect',()=>{
+
+    console.log('A Client connected')
+
+    socket.on('disconnect',()=>{
+        console.log('A Client disconnected')
+    })
+})
+
+
 var output = document.querySelector("#value");
 
 const sliders = document.querySelectorAll(".slider-container")
+
 
 sliders.forEach(slider=>{
 
@@ -13,7 +26,18 @@ sliders.forEach(slider=>{
         slider.querySelector("#value").innerHTML = value
         slider.querySelector("#slider").setAttribute("value",value)
         slider.querySelector(".slider-container .fill").style.height = perValue + "%"
+
+        socket.emit(getFaderName(slider),value)
+
     })
     
 
 })
+
+function getFaderName(slider){
+    let faderName = "none"
+    if(slider.classList.contains("one")){return faderName ="faderOne"}
+    if(slider.classList.contains("two")){return faderName ="faderTwo"}
+    if(slider.classList.contains("three")){return faderName ="faderThree"}
+    if(slider.classList.contains("four")){return faderName ="faderFour"}
+}

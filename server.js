@@ -14,7 +14,12 @@ app.get('/',(req,res)=>{
     //res.sendFile(path.join(__dirname,'public'))
 })
 
-//Create a New Connections
+//OSC 
+var oscLogic = require('./oscLogic.js');
+//oscLogic.sendOSC();
+
+
+//Create a New Connections //Mangae Socket
 io.on('connection',socket =>{
     console.log('A User Connected')
 
@@ -22,13 +27,19 @@ io.on('connection',socket =>{
         console.log("A User Disconnected")
     })
 
-    socket.on("message",msg=>{
-        console.log("Client Message "+msg)
+    socket.on("faderOne",msg=>{
+        console.log("Fader One Value = "+msg)
+        //oscLogic.sendOSC();
     })
 
 
 })
 
+
+//Static CSS Send
+app.use(express.static("public"))
+
+//Send HTML File
 http.listen(port,()=>{
     console.log(`App Listening on ${port}`)
 })
