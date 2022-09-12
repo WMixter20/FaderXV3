@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express();
 const path = require('path')
+const dgram = require('dgram')
 
 const http =require('http').Server(app)
 const port = process.env.PORT||4000
@@ -15,25 +16,9 @@ app.get('/',(req,res)=>{
 })
 
 //OSC 
-var oscLogic = require('./oscLogic.js');
-//oscLogic.sendOSC();
+const oscLogic = require('./oscLogic.js');
+oscLogic.sendOSC();
 
-
-//Create a New Connections //Mangae Socket
-io.on('connection',socket =>{
-    console.log('A User Connected')
-
-    socket.on('disconnect',()=>{
-        console.log("A User Disconnected")
-    })
-
-    socket.on("faderOne",msg=>{
-        console.log("Fader One Value = "+msg)
-        //oscLogic.sendOSC();
-    })
-
-
-})
 
 
 //Static CSS Send
@@ -42,4 +27,22 @@ app.use(express.static("public"))
 //Send HTML File
 http.listen(port,()=>{
     console.log(`App Listening on ${port}`)
+})
+
+//Create a New Connections //Mangae Socket
+
+io.on('connection',socket =>{
+    console.log('A User Connected')
+
+    socket.on('disconnect',()=>{
+        console.log("A User Disconnected")
+    })
+
+    socket.on("faderOne",msg=>{
+        //console.log("Fader One Value = "+msg)
+        module.exports.faderOne = msg;
+        oscLogic.sendOSC();
+    })
+
+
 })
