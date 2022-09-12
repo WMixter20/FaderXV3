@@ -15,10 +15,12 @@ app.get('/',(req,res)=>{
     //res.sendFile(path.join(__dirname,'public'))
 })
 
-//OSC 
-const oscLogic = require('./oscLogic.js');
-oscLogic.sendOSC();
-
+//OSC init
+const oscLogic = require('./oscLogic.js'); //Import the File
+const firstFader = new oscLogic.fader('Fader One',`/wm/fader/1`) 
+const secondFader = new oscLogic.fader('Fader Two',`/wm/fader/2`) 
+const threeFader = new oscLogic.fader('Fader Three',`/wm/fader/3`) 
+const fourFader = new oscLogic.fader('Fader Four',`/wm/fader/4`) 
 
 
 //Static CSS Send
@@ -39,10 +41,24 @@ io.on('connection',socket =>{
     })
 
     socket.on("faderOne",msg=>{
-        //console.log("Fader One Value = "+msg)
-        module.exports.faderOne = msg;
-        oscLogic.sendOSC();
+        firstFader.sendOsc(msg)
     })
+    socket.on("faderTwo",msg=>{
+        secondFader.sendOsc(msg)
+    })
+    socket.on("faderThree",msg=>{
+        threeFader.sendOsc(msg)
+    })
+    socket.on("faderFour",msg=>{
+        fourFader.sendOsc(msg)
+    })
+
+    //emit
+    socket.emit('sFaderOne',-5)
+    socket.emit('sFaderTwo',-10)
+    socket.emit('sFaderThree',-20)
+    socket.emit('sFaderFour',-30)
+    
 
 
 })
