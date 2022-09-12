@@ -12,11 +12,10 @@ class fader {
     }
     sendOsc(value){
         client.send(this.address, value, () => {
-            console.log(`Sent OSC for ${this.name}`)
+            console.log(`Sent OSC for ${this.name} at ${value}`)
           });
     }
-
-
+    
 }
 
 module.exports.fader = fader
