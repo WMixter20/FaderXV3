@@ -1,28 +1,21 @@
 const { Client, Server } = require('node-osc');
-const client = new Client('192.168.0.165', 4444);
+const client = new Client('192.168.0.165', 7777);
 
 //'192.168.0.165'
-var serverCon = require('./server.js');
+//var serverCon = require('./server.js');
 
 
-
-function sendOSC(){
-client.send('/oscAddress', 100, () => {
-    //client.close();
-    console.log("Sent OSC")
-
-  });
-}
-class faderOutput {
-    constructor(faderOne){
-        this.fader = faderOne
+class fader {
+    constructor(name,address){
+        this.name = name
+        this.address = address
     }
-    fader(value){
-        client.send('/oscAddress', value, () => {
-            console.log("Sent Fader 1")
+    sendOsc(value){
+        client.send(this.address, value, () => {
+            console.log(`Sent OSC for ${this.name} at ${value}`)
           });
     }
-
+    
 }
 
-module.exports.sendOSC = sendOSC;
+module.exports.fader = fader
