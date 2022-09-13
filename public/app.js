@@ -8,22 +8,20 @@ socket.on('connect',()=>{
         console.log('A Client disconnected')
     })
 
-    socket.on('sFaderOne',(msg) =>{
-        socektFaders(0,msg)
-    })
-    socket.on('sFaderTwo',(msg) =>{
-        socektFaders(1,msg)
-    })
-    socket.on('sFaderThree',(msg) =>{
-        socektFaders(2,msg)
-    })
-    socket.on('sFaderFour',(msg) =>{
-        socektFaders(3,msg)
+    //Recive Data From Server
+    socket.on('sFaders',(faderNum,faderVal,min,max) =>{
+        socketFadersMinMax(faderNum,min,max)
+        socektFadersVal(faderNum,faderVal)
     })
 
 })
+function  socketFadersMinMax(sliderArrayNum,socketMin,socketMax){
+    let slider1 = document.getElementsByClassName(`slider`)[sliderArrayNum]
+    slider1.setAttribute('min',socketMin)
+    slider1.setAttribute('max',socketMax)
+}
 
- function socektFaders(sliderArrayNum,socketMSG){
+ function socektFadersVal(sliderArrayNum,socketMSG){
     let slider1 = document.getElementsByClassName(`slider`)[sliderArrayNum]
     let slidercontainer1 = document.querySelectorAll(".slider-container")[sliderArrayNum]
 
@@ -44,7 +42,6 @@ sliders.forEach(slider=>{
     slider.addEventListener('input',()=>{
 
         var value = slider.querySelector("#slider").value
-        
 
         slider.querySelector("#value").innerHTML = value
         slider.querySelector("#slider").setAttribute("value",value)
