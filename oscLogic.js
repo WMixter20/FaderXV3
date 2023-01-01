@@ -1,8 +1,6 @@
+//OSC TX
 const { Client, Server } = require('node-osc');
-const client = new Client('192.168.0.165', 7777);
-
-//'192.168.0.165'
-//var serverCon = require('./server.js');
+const client = new Client('10.0.0.119', 7777);
 
 
 class fader {
@@ -11,8 +9,8 @@ class fader {
         this.address = address
     }
     sendOsc(value){
-        client.send(this.address, value, () => {
-            console.log(`Sent OSC for ${this.name} at ${value}`)
+        client.send(this.address, parseInt(value), () => {
+            //console.log(`Sent OSC for ${this.name} at ${value}`)
           });
     }
     

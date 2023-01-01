@@ -13,6 +13,9 @@ socket.on('connect',()=>{
         socketFadersMinMax(faderNum,min,max)
         socektFadersVal(faderNum,faderVal)
     })
+    socket.on('sFaderVal',(faderNum,faderVal)=>{
+        socektFadersVal(faderNum,faderVal)
+    })
 
 })
 function  socketFadersMinMax(sliderArrayNum,socketMin,socketMax){
@@ -36,7 +39,6 @@ var output = document.querySelector("#value");
 
 const sliders = document.querySelectorAll(".slider-container")
 
-
 sliders.forEach(slider=>{
 
     slider.addEventListener('input',()=>{
@@ -47,9 +49,18 @@ sliders.forEach(slider=>{
         slider.querySelector("#slider").setAttribute("value",value)
         setFaderCSS(slider)
         socket.emit(getFaderName(slider),value)
+        /*
+        setTimeout(()=>{
+            window.location.reload()
+        },5000);
+        */
 
     })
-    
+    slider.addEventListener('change',()=>{
+        setTimeout(()=>{
+            window.location.reload()
+        },500);
+    })
 
 })
 

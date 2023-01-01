@@ -26,10 +26,16 @@ body{
     position: absolute;
     bottom: 250px;
     left: -10px;
+    
 }
 #value{
     color: rgb(0, 0, 0, .2);
     font-size: 50px;
+    display:inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: hidden;
+    max-width: 3.5ch;
 }
 
 .slider-container .slider{
@@ -37,8 +43,8 @@ body{
     z-index: 3;
     left: 50%;
     top: 50%;
-    -webkit-appearance: none;
     margin: 0;
+    appearance: none;
     width: 300px;
     height: 20px;
     outline: none;
@@ -56,6 +62,7 @@ body{
     box-shadow: 0 0 5px rgba(0,0,0,.5);
     cursor: pointer;
     transition: .3s ease-in-out;
+    
 }
 .slider-container .slider::-webkit-slider-thumb:hover{
     border-color: #eeeeee;
