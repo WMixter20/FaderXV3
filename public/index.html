@@ -5,10 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-
-    <title>4 Faders</title>
+    <title>FaderX</title>
 </head>
-<body>
+<body> 
+    <div class="aContainer" id="buttonL">
+        <div class="arr left"><div></div></div>
+    </div>
+
     <div class="sliders-wrapper">
 
         <div class="slider-container one" id="slider-container">
@@ -45,8 +48,14 @@
             <span class="rulers"></span>
             <span class="bar"><span class="span fill"></span></span>
             <input type="range" id="slider" class="slider four" min="-100" max="10" value="0%">
+        </div>
+        <div class="pageC">
+            <span id="page">00</span>
+        </div>
     </div>
-    </div>    
+    <div class="aContainer" id="buttonR">
+        <div class="arr right"><div></div></div>
+    </div> 
     <script src="socket.io/socket.io.js"></script>
     <script type="text/javascript" src="app.js"></script>
 

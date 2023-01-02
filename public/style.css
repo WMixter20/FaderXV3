@@ -10,7 +10,44 @@ body{
     font-family: 'Archivo', sans-serif;
 
 }
+
+
+.arr {
+    position: relative;
+    background: #3e3e3e;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    margin: 50px;
+    transition: 0.3s ease;
+}
+.arr:hover{
+    box-shadow: 0 0 0 15px rgba(255,255,255,.1);
+    cursor: pointer;
+}
+
+.arr div{
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    border-top: 8px solid #202020;
+    border-left: 8px solid #202020;
+    transform: rotate(45deg);
+    left: 27.5px;
+    top: 35px;
+}
+
+.left{
+    transform: rotate(-90deg);
+    right: 20vw;
+}
+.right{
+    transform: rotate(90deg);
+    left: 20vw;
+}
+
 .sliders-wrapper{
+    position: absolute;
     display: flex;
     width: 30vw;
     justify-content: space-between;
@@ -20,13 +57,13 @@ body{
     position: relative;
     width: 20px;
     height: 300px;
+    
 }
 .value-container{
     margin-bottom: 50px;
     position: absolute;
     bottom: 250px;
     left: -10px;
-    
 }
 #value{
     color: rgb(0, 0, 0, .2);
@@ -36,6 +73,14 @@ body{
     overflow: hidden;
     text-overflow: hidden;
     max-width: 3.5ch;
+}
+.pageC{
+    position: absolute;
+    color: rgb(0, 0, 0, .2);
+    font-size: 50px;
+    margin-top: 370px;
+    padding-left: 50%;
+    padding-right: 50%;
 }
 
 .slider-container .slider{

@@ -24,7 +24,7 @@ function  socketFadersMinMax(sliderArrayNum,socketMin,socketMax){
     slider1.setAttribute('max',socketMax)
 }
 
- function socektFadersVal(sliderArrayNum,socketMSG){
+function socektFadersVal(sliderArrayNum,socketMSG){
     let slider1 = document.getElementsByClassName(`slider`)[sliderArrayNum]
     let slidercontainer1 = document.querySelectorAll(".slider-container")[sliderArrayNum]
 
@@ -63,6 +63,34 @@ sliders.forEach(slider=>{
     })
 
 })
+
+//=================================================================Button Logic
+
+let buttonL = document.querySelector(`#buttonL`)
+
+buttonL.addEventListener('click',()=>{
+    console.log("Left Click")
+})
+
+let buttonR = document.querySelector(`#buttonR`)
+/*
+buttonR.addEventListener('click',()=>{
+    console.log("Right Click")
+})
+*/
+document.addEventListener('keydown', (e) => {
+  e = e || window.event;
+    if(e.key === 'ArrowLeft'){
+        console.log('Left Arrow')
+    }
+    else if(e.key === 'ArrowRight'){
+        console.log('Right Arrow')
+    }
+
+})
+
+//=================================================================Button Logic
+
 
 function getFaderName(slider){
     let faderName = "none"
