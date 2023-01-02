@@ -49,19 +49,15 @@ sliders.forEach(slider=>{
         slider.querySelector("#slider").setAttribute("value",value)
         setFaderCSS(slider)
         socket.emit(getFaderName(slider),value)
-        /*
-        setTimeout(()=>{
-            window.location.reload()
-        },5000);
-        */
 
     })
+    ///* //This Allows the Webkit to Cheat 
     slider.addEventListener('change',()=>{
         setTimeout(()=>{
             window.location.reload()
         },500);
     })
-
+    //*/
 })
 
 //=================================================================Button Logic

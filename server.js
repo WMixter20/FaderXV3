@@ -5,15 +5,11 @@ const dgram = require('dgram')
 
 const http =require('http').Server(app)
 const port = process.env.PORT||4000
+const myIp = '10.0.0.159'  //==========Check for each lan
 
-//Attach HTTP Server to Socket.io
+const clientIDs = {};
+
 const io = require('socket.io')(http)
-
-//route
-app.get('/',(req,res)=>{
-    res.sendFile(path.join(__dirname,'public/index.html'))
-    //res.sendFile(path.join(__dirname,'public'))
-})
 
 //OSC init
 const oscLogic = require('./oscLogic.js'); //Import the File
@@ -40,6 +36,14 @@ const sliders =[
 ]
 module.exports.sliders = sliders
 
+//route
+app.get('/',(req,res)=>{
+    res.sendFile(path.join(__dirname,'public/index.html'))
+    //res.sendFile(path.join(__dirname,'public'))
+})
+http.listen(4000,myIp,()=>{
+    console.log("http")
+})
 
 //Static CSS Send
 app.use(express.static("public"))
@@ -49,10 +53,11 @@ http.listen(port,()=>{
     console.log(`App Listening on ${port}`)
 })
 
-//Create a New Connections //Mangae Socket
 
+
+//Create a New Connections //Mangae Socket
 io.on('connection',socket =>{
-    
+
     console.log('A User Connected')
 
     socket.on('disconnect',()=>{
@@ -62,18 +67,25 @@ io.on('connection',socket =>{
     socket.on("faderOne",msg=>{
         firstFader.sendOsc(msg)
         sliders[0]['value'] = msg
+        socket.broadcast.emit('sFaderVal',0,msg)
     })
     socket.on("faderTwo",msg=>{
         secondFader.sendOsc(msg)
         sliders[1]['value'] = msg
+        socket.broadcast.emit('sFaderVal',1,msg)
+
     })
     socket.on("faderThree",msg=>{
         threeFader.sendOsc(msg)
         sliders[2]['value'] = msg
+        socket.broadcast.emit('sFaderVal',2,msg)
+
     })
     socket.on("faderFour",msg=>{
         fourFader.sendOsc(msg)
         sliders[3]['value'] = msg
+        socket.broadcast.emit('sFaderVal',3,msg)
+
     })
     //===================================Button
     socket.on("buttonL",msg=>{

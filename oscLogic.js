@@ -1,6 +1,6 @@
 //OSC TX
 const { Client, Server } = require('node-osc');
-const ipadClient = new Client('10.0.0.119', 7777);
+const ipadClient = new Client('10.0.0.119', 7778);
 
 
 class fader {
