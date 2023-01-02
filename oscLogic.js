@@ -13,7 +13,6 @@ class fader {
             //console.log(`Sent OSC for ${this.name} at ${value}`)
           });
     }
-    
 }
 
 module.exports.fader = fader

@@ -73,11 +73,11 @@ buttonL.addEventListener('click',()=>{
 })
 
 let buttonR = document.querySelector(`#buttonR`)
-/*
+
 buttonR.addEventListener('click',()=>{
     console.log("Right Click")
 })
-*/
+
 document.addEventListener('keydown', (e) => {
   e = e || window.event;
     if(e.key === 'ArrowLeft'){
