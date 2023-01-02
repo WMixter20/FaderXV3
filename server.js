@@ -20,7 +20,10 @@ const oscLogic = require('./oscLogic.js'); //Import the File
 const firstFader = new oscLogic.fader('Fader One',`/wf/1/`) 
 const secondFader = new oscLogic.fader('Fader Two',`/wf/2/`) 
 const threeFader = new oscLogic.fader('Fader Three',`/wf/3/`) 
-const fourFader = new oscLogic.fader('Fader Four',`/wf/4/`) 
+const fourFader = new oscLogic.fader('Fader Four',`/wf/4/`)
+const leftButton = new oscLogic.button('leftButton',`/wfR/`)
+const rightButton = new oscLogic.button('rightButton',`/wfL/`) 
+
 
 //OSC Rx
 const { Server } = require('node-osc');
@@ -72,6 +75,13 @@ io.on('connection',socket =>{
         fourFader.sendOsc(msg)
         sliders[3]['value'] = msg
     })
+    //===================================Button
+    socket.on("buttonL",msg=>{
+        leftButton.sendLB()
+    })
+    socket.on("buttonR",msg=>{
+        leftButton.sendRB()
+    })   
 
     //emit (Send to Client)
     socket.emit('sFaders',0,sliders[0]['value'],sliders[0]['min'],sliders[0]['max'])

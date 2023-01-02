@@ -69,22 +69,22 @@ sliders.forEach(slider=>{
 let buttonL = document.querySelector(`#buttonL`)
 
 buttonL.addEventListener('click',()=>{
-    console.log("Left Click")
+    socket.emit("buttonL",(""))
 })
 
 let buttonR = document.querySelector(`#buttonR`)
 
 buttonR.addEventListener('click',()=>{
-    console.log("Right Click")
+    socket.emit("buttonR",(""))
 })
 
 document.addEventListener('keydown', (e) => {
   e = e || window.event;
     if(e.key === 'ArrowLeft'){
-        console.log('Left Arrow')
+        socket.emit("buttonL",(""))
     }
     else if(e.key === 'ArrowRight'){
-        console.log('Right Arrow')
+        socket.emit("buttonR",(""))
     }
 
 })
