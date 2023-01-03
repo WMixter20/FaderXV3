@@ -1,63 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <title>FaderX</title>
-</head>
-<body> 
+  </head>
+  <body>
     <div class="aContainer" id="buttonL">
-        <div class="arr left"><div></div></div>
+      <div class="arr left"><div></div></div>
     </div>
 
     <div class="sliders-wrapper">
-
-        <div class="slider-container one" id="slider-container">
-                <div class="value-container one">
-                    <span id="value">0</span>
-                </div>
-                <span class="rulers"></span>
-                <span class="bar"><span class="span fill"></span></span>
-                <input type="range" id="slider" class="slider one" min="-100" max="10" value="0%">
+      <div class="slider-container">
+        <div class="value-container">
+          <span class="value" id="value1">-100</span>
         </div>
-
-        <div class="slider-container two" id="slider-container">
-            <div class="value-container two">
-                <span id="value">0</span>
-            </div>
-            <span class="rulers"></span>
-            <span class="bar"><span class="span fill"></span></span>
-            <input type="range" id="slider" class="slider two" min="-100" max="10" value="0%">
+        <span class="rulers"></span>
+        <span class="bar"><span class="fill" id="fill1"></span></span>
+        <input
+          type="range"
+          class="slider"
+          min="-100"
+          max="10"
+          value="-100"
+          id="slider1"
+        />
+      </div>
+      <div class="slider-container">
+        <div class="value-container">
+          <span class="value" id="value2">-100</span>
         </div>
-
-        <div class="slider-container three" id="slider-container">
-            <div class="value-container three">
-                <span id="value">0</span>
-            </div>
-            <span class="rulers"></span>
-            <span class="bar"><span class="span fill"></span></span>
-            <input type="range" id="slider" class="slider three" min="-100" max="10" value="0%">
+        <span class="rulers"></span>
+        <span class="bar"><span class="fill" id="fill2"></span></span>
+        <input
+          type="range"
+          class="slider"
+          min="-100"
+          max="10"
+          value="-100"
+          id="slider2"
+        />
+      </div>
+      <div class="slider-container">
+        <div class="value-container">
+          <span class="value" id="value3">-100</span>
         </div>
-
-        <div class="slider-container four" id="slider-container">
-            <div class="value-container four">
-                <span id="value">0</span>
-            </div>
-            <span class="rulers"></span>
-            <span class="bar"><span class="span fill"></span></span>
-            <input type="range" id="slider" class="slider four" min="-100" max="10" value="0%">
+        <span class="rulers"></span>
+        <span class="bar"><span class="fill" id="fill3"></span></span>
+        <input
+          type="range"
+          class="slider"
+          min="-100"
+          max="10"
+          value="-100"
+          id="slider3"
+        />
+      </div>
+      <div class="slider-container">
+        <div class="value-container">
+          <span class="value" id="value4">-100</span>
         </div>
-        <div class="pageC">
-            <span id="page">00</span>
-        </div>
+        <span class="rulers"></span>
+        <span class="bar"><span class="fill" id="fill4"></span></span>
+        <input
+          type="range"
+          class="slider"
+          min="-100"
+          max="10"
+          value="-100"
+          id="slider4"
+        />
+      </div>
     </div>
+
+    <!--     
+
+    <div class="sliders-wrapper">
+      <div class="slider-container one" id="slider-container">
+        <div class="value-container one">
+          <span id="value">0</span>
+        </div>
+        <span class="rulers"></span>
+        <span class="bar"><span class="span fill" id="fill1"></span></span>
+        <input
+          type="range"
+          id="slider"
+          class="slider one"
+          min="-100"
+          max="10"
+          value="0%"
+        />
+      </div>
+
+      <div class="slider-container two" id="slider-container">
+        <div class="value-container two">
+          <span id="value">0</span>
+        </div>
+        <span class="rulers"></span>
+        <span class="bar"><span class="span fill"></span></span>
+        <input
+          type="range"
+          id="slider"
+          class="slider two"
+          min="-100"
+          max="10"
+          value="0%"
+        />
+      </div>
+
+      <div class="slider-container three" id="slider-container">
+        <div class="value-container three">
+          <span id="value">0</span>
+        </div>
+        <span class="rulers"></span>
+        <span class="bar"><span class="span fill"></span></span>
+        <input
+          type="range"
+          id="slider"
+          class="slider three"
+          min="-100"
+          max="10"
+          value="0%"
+        />
+      </div>
+
+      <div class="slider-container four" id="slider-container">
+        <div class="value-container four">
+          <span id="value">0</span>
+        </div>
+        <span class="rulers"></span>
+        <span class="bar"><span class="span fill"></span></span>
+        <input
+          type="range"
+          id="slider"
+          class="slider four"
+          min="-100"
+          max="10"
+          value="0%"
+        />
+      </div>
+      <div class="pageC">
+        <span id="page">00</span>
+      </div>
+    </div> -->
     <div class="aContainer" id="buttonR">
-        <div class="arr right"><div></div></div>
-    </div> 
+      <div class="arr right"><div></div></div>
+    </div>
     <script src="socket.io/socket.io.js"></script>
     <script type="text/javascript" src="app.js"></script>
-
-</body>
+  </body>
 </html>
