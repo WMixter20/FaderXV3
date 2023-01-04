@@ -43,8 +43,8 @@ document.addEventListener("keydown", (e) => {
 });
 
 // dummy entry since no slider number 0
-const SLIDER_MIN = [0, -100, -100, -100, -100];
-const SLIDER_MAX = [0, 10, 10, 10, 10];
+const SLIDER_MIN = [-100, -100, -100, -100];
+const SLIDER_MAX = [10, 10, 10, 10];
 
 function clamp(x, min, max) {
   if (x < min) {
