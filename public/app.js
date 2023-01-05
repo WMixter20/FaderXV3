@@ -82,8 +82,8 @@ function updateSliderRealtime(sliderNum, newValue) {
   document.getElementById("fill" + sliderNum).style =
     "height: " + 100 * percentage + "%";
   document.getElementById("value" + sliderNum).innerHTML = newValue;
-
   // TODO: socket emit goes here (I don't know the protocol)
+  socket.emit(sliderNum,newValue)
 }
 
 function registerSliders() {

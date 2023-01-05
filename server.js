@@ -5,7 +5,7 @@ const dgram = require("dgram");
 
 const http = require("http").Server(app);
 const port = process.env.PORT || 4000;
-const myIp = "192.168.2.16"; //==========Check for each lan
+const myIp = "10.0.0.159"; //==========Check for each lan
 
 const clientIDs = {};
 
@@ -60,22 +60,22 @@ io.on("connection", (socket) => {
     console.log("A User Disconnected");
   });
 
-  socket.on("faderOne", (msg) => {
+  socket.on(1, (msg) => {
     firstFader.sendOsc(msg);
     sliders[0]["value"] = msg;
     socket.broadcast.emit("sFaderVal", 0, msg);
   });
-  socket.on("faderTwo", (msg) => {
+  socket.on(2, (msg) => {
     secondFader.sendOsc(msg);
     sliders[1]["value"] = msg;
     socket.broadcast.emit("sFaderVal", 1, msg);
   });
-  socket.on("faderThree", (msg) => {
+  socket.on(3, (msg) => {
     threeFader.sendOsc(msg);
     sliders[2]["value"] = msg;
     socket.broadcast.emit("sFaderVal", 2, msg);
   });
-  socket.on("faderFour", (msg) => {
+  socket.on(4, (msg) => {
     fourFader.sendOsc(msg);
     sliders[3]["value"] = msg;
     socket.broadcast.emit("sFaderVal", 3, msg);
