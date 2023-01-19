@@ -31,7 +31,7 @@ const sliders = [
   { id: 1, name: "faderOne", min: 0, max: 127, value: 50 },
   { id: 2, name: "faderTwo", min: 0, max: 127, value: 10 },
   { id: 3, name: "faderThree", min: 0, max: 127, value: 60 },
-  { id: 4, name: "faderFour", min: 0, max: 127, value: 25 },
+  { id: 4, name: "faderFour", min: 0, max: 127, value: 40 }, //>>>>>>
 ];
 module.exports.sliders = sliders;
 

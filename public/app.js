@@ -41,6 +41,7 @@ document.addEventListener("keydown", (e) => {
     socket.emit("buttonR", "");
   }
 });
+//=================================================================
 
 // dummy entry since no slider number 0
 const SLIDER_MIN = [-100, -100, -100, -100];
@@ -84,6 +85,7 @@ function updateSliderRealtime(sliderNum, newValue) {
   document.getElementById("value" + sliderNum).innerHTML = newValue;
   // TODO: socket emit goes here (I don't know the protocol)
   socket.emit(sliderNum,newValue)
+  console.log("updateSliderRealtime " + newValue)
 }
 
 function registerSliders() {
