@@ -18,7 +18,11 @@ socket.on("connect", () => {
   });
   ``;
 });
-
+/*
+window.addEventListener("load", (event) => {
+  socket.emit("initLoad", "")
+});
+*/
 //=================================================================Button Logic
 
 let buttonL = document.querySelector(`#buttonL`);
@@ -85,7 +89,6 @@ function updateSliderRealtime(sliderNum, newValue) {
   document.getElementById("value" + sliderNum).innerHTML = newValue;
   // TODO: socket emit goes here (I don't know the protocol)
   socket.emit(sliderNum,newValue)
-  console.log("updateSliderRealtime " + newValue)
 }
 
 function registerSliders() {

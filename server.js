@@ -59,23 +59,35 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log("A User Disconnected");
   });
+/*
+  socket.on("initLoad", () => {
+    socket.emit(
+      "sFaders",
+      0,
+      sliders[0]["value"],
+      sliders[0]["min"],
+      sliders[0]["max"]
+    );
+  })
+*/
 
-  socket.on(1, (msg) => {
+  socket.on(0, (msg) => {
     firstFader.sendOsc(msg);
     sliders[0]["value"] = msg;
+    console.log("This is msg: " + msg)
     socket.broadcast.emit("sFaderVal", 0, msg);
   });
-  socket.on(2, (msg) => {
+  socket.on(1, (msg) => {
     secondFader.sendOsc(msg);
     sliders[1]["value"] = msg;
     socket.broadcast.emit("sFaderVal", 1, msg);
   });
-  socket.on(3, (msg) => {
+  socket.on(2, (msg) => {
     threeFader.sendOsc(msg);
     sliders[2]["value"] = msg;
     socket.broadcast.emit("sFaderVal", 2, msg);
   });
-  socket.on(4, (msg) => {
+  socket.on(3, (msg) => {
     fourFader.sendOsc(msg);
     sliders[3]["value"] = msg;
     socket.broadcast.emit("sFaderVal", 3, msg);
@@ -87,7 +99,7 @@ io.on("connection", (socket) => {
   socket.on("buttonR", (msg) => {
     leftButton.sendRB();
   });
-
+  
   //emit (Send to Client)
   socket.emit(
     "sFaders",
@@ -117,7 +129,7 @@ io.on("connection", (socket) => {
     sliders[3]["min"],
     sliders[3]["max"]
   );
-
+  
   //OSC RX Faders
   oscServer.on("message", function (OSCmsg) {
     if (OSCmsg.includes("/wf/1/")) {
