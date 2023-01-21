@@ -1,102 +1,104 @@
-const socket = io()
+const socket = io();
 
-socket.on('connect',()=>{
+socket.on("connect", () => {
+  console.log("A Client connected");
 
-    console.log('A Client connected')
+  socket.on("disconnect", () => {
+    console.log("A Client disconnected");
+  });
 
-    socket.on('disconnect',()=>{
-        console.log('A Client disconnected')
-    })
-
-    //Recive Data From Server
-    socket.on('sFaders',(faderNum,faderVal,min,max) =>{
-        socketFadersMinMax(faderNum,min,max)
-        socektFadersVal(faderNum,faderVal)
-    })
-    socket.on('sFaderVal',(faderNum,faderVal)=>{
-        socektFadersVal(faderNum,faderVal)
-    })
-
-})
-function  socketFadersMinMax(sliderArrayNum,socketMin,socketMax){
-    let slider1 = document.getElementsByClassName(`slider`)[sliderArrayNum]
-    slider1.setAttribute('min',socketMin)
-    slider1.setAttribute('max',socketMax)
-}
-
-function socektFadersVal(sliderArrayNum,socketMSG){
-    let slider1 = document.getElementsByClassName(`slider`)[sliderArrayNum]
-    let slidercontainer1 = document.querySelectorAll(".slider-container")[sliderArrayNum]
-
-    slider1.setAttribute('value',socketMSG)
-    let perValue = (slider1.getAttribute('value')-slider1.getAttribute('min'))/(slider1.getAttribute('max')-slider1.getAttribute('min'))*100
-    slidercontainer1.querySelector(".slider-container .fill").style.height = perValue + "%"
-    slidercontainer1.querySelector("#value").innerHTML = socketMSG
- }
-
-
-var output = document.querySelector("#value");
-
-const sliders = document.querySelectorAll(".slider-container")
-
-sliders.forEach(slider=>{
-
-    slider.addEventListener('input',()=>{
-
-        var value = slider.querySelector("#slider").value
-
-        slider.querySelector("#value").innerHTML = value
-        slider.querySelector("#slider").setAttribute("value",value)
-        setFaderCSS(slider)
-        socket.emit(getFaderName(slider),value)
-
-    })
-    ///* //This Allows the Webkit to Cheat 
-    slider.addEventListener('change',()=>{
-        setTimeout(()=>{
-            window.location.reload()
-        },500);
-    })
-    //*/
-})
-
+  //Recive Data From Server
+  // this *should* work but i haven't tested with a server
+  socket.on("sFaders", (faderNum, faderVal, min, max) => {
+    updateMinMax(faderNum, min, max);
+    updateSliderValue(faderNum, faderVal);
+  });
+  socket.on("sFaderVal", (faderNum, faderVal) => {
+    updateSliderValue(faderNum, faderVal);
+  });
+  ``;
+});
+/*
+window.addEventListener("load", (event) => {
+  socket.emit("initLoad", "")
+});
+*/
 //=================================================================Button Logic
 
-let buttonL = document.querySelector(`#buttonL`)
+let buttonL = document.querySelector(`#buttonL`);
 
-buttonL.addEventListener('click',()=>{
-    socket.emit("buttonL",(""))
-})
+buttonL.addEventListener("click", () => {
+  socket.emit("buttonL", "");
+});
 
-let buttonR = document.querySelector(`#buttonR`)
+let buttonR = document.querySelector(`#buttonR`);
 
-buttonR.addEventListener('click',()=>{
-    socket.emit("buttonR",(""))
-})
+buttonR.addEventListener("click", () => {
+  socket.emit("buttonR", "");
+});
 
-document.addEventListener('keydown', (e) => {
+document.addEventListener("keydown", (e) => {
   e = e || window.event;
-    if(e.key === 'ArrowLeft'){
-        socket.emit("buttonL",(""))
-    }
-    else if(e.key === 'ArrowRight'){
-        socket.emit("buttonR",(""))
-    }
+  if (e.key === "ArrowLeft") {
+    socket.emit("buttonL", "");
+  } else if (e.key === "ArrowRight") {
+    socket.emit("buttonR", "");
+  }
+});
+//=================================================================
 
-})
+// dummy entry since no slider number 0
+const SLIDER_MIN = [-100, -100, -100, -100];
+const SLIDER_MAX = [10, 10, 10, 10];
 
-//=================================================================Button Logic
-
-
-function getFaderName(slider){
-    let faderName = "none"
-    if(slider.classList.contains("one")){return faderName ="faderOne"}
-    if(slider.classList.contains("two")){return faderName ="faderTwo"}
-    if(slider.classList.contains("three")){return faderName ="faderThree"}
-    if(slider.classList.contains("four")){return faderName ="faderFour"}
+function clamp(x, min, max) {
+  if (x < min) {
+    return min;
+  }
+  if (x > max) {
+    return max;
+  }
+  return x;
 }
 
-function setFaderCSS(slider){
-    var perValue = (slider.querySelector("#slider").value-slider.querySelector("#slider").min)/(slider.querySelector("#slider").max-slider.querySelector("#slider").min)*100
-    slider.querySelector(".slider-container .fill").style.height = perValue + "%"
+function updateMinMax(sliderNum, newMin, newMax) {
+  SLIDER_MIN[sliderNum] = newMin;
+  SLIDER_MAX[sliderNum] = newMax;
+  const newVal = clamp(
+    document.getElementById("slider" + sliderNum).value,
+    newMin,
+    newMax
+  );
+  document.getElementById("slider" + sliderNum).setAttribute("min", newMin);
+  document.getElementById("slider" + sliderNum).setAttribute("max", newMax);
+  updateSliderValue(sliderNum, newVal);
 }
+
+function updateSliderValue(sliderNum, newValue) {
+  document.getElementById("slider" + sliderNum).value = newValue;
+  updateSliderRealtime(sliderNum, newValue);
+}
+
+function updateSliderRealtime(sliderNum, newValue) {
+  const shift = -1 * SLIDER_MIN[sliderNum];
+  const shifted_max = SLIDER_MAX[sliderNum] + shift;
+  const shifted_new = newValue + shift;
+  const percentage = clamp(shifted_new / shifted_max, 0, 100);
+  document.getElementById("fill" + sliderNum).style =
+    "height: " + 100 * percentage + "%";
+  document.getElementById("value" + sliderNum).innerHTML = newValue;
+  // TODO: socket emit goes here (I don't know the protocol)
+  socket.emit(sliderNum,newValue)
+}
+
+function registerSliders() {
+  const sliders = document.querySelectorAll(".slider");
+  sliders.forEach((slider) => {
+    const id = slider.getAttribute("id").split("slider")[1];
+    slider.addEventListener("input", (e) => {
+      updateSliderRealtime(id, parseInt(e.target.value));
+    });
+  });
+}
+
+registerSliders();
